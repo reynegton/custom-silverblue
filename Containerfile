@@ -18,6 +18,8 @@ RUN dnf -y install \
     distrobox \
     fastfetch \
     ffmpegthumbnailer \
+    gh \
+    git-lfs \
     gnome-tweaks \
     lm_sensors \
     nethogs \
