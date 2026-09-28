@@ -33,8 +33,8 @@ COPY rootfs/ /
 # 4. Ajustar permissões dos scripts executáveis
 RUN chmod +x /usr/bin/flatpak-provisioning.sh /usr/local/bin/*.sh
 
-# 5. Compilar os esquemas GSettings do GNOME (aplica temas, fontes e extensões de fábrica)
-RUN glib-compile-schemas /usr/share/glib-2.0/schemas
+# 5. Compilar os esquemas GSettings do GNOME e gerar o banco Dconf do sistema
+RUN glib-compile-schemas /usr/share/glib-2.0/schemas && dconf update
 
 # 6. Habilitar serviços de sistema essenciais
 RUN systemctl enable sysstat flatpak-provisioning.service

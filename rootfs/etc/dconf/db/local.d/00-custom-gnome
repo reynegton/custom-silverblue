@@ -1,0 +1,51 @@
+# ==============================================================================
+# Configurações Padrão do Sistema (GNOME Desktop & Extensões)
+# Compilado automaticamente via 'dconf update' no build do container
+# ==============================================================================
+
+[org/gnome/desktop/interface]
+color-scheme='prefer-dark'
+gtk-theme='adw-gtk3-dark'
+font-antialiasing='rgba'
+font-rgba-order='rgb'
+
+[org/gnome/mutter]
+experimental-features=['kms-modifiers', 'autoclose-xwayland']
+
+[org/gnome/shell]
+enabled-extensions=['Vitals@CoreCoding.com', 'weatheroclock@CleoMenezesJr.github.io', 'appindicatorsupport@rgcjonas.gmail.com', 'clipboard-indicator@tudmotu.com', 'just-perfection-desktop@just-perfection']
+
+[org/gnome/shell/extensions/vitals]
+battery-colors=@as []
+fan-colors=@as []
+gpu-colors=@as []
+hot-sensors=['_processor_frequency_', '_processor_usage_', '_memory_usage_', '_memory_swap_usage_', '_temperature_processor_0_']
+include-static-info=false
+memory-colors=@as []
+position-in-panel=0
+processor-colors=@as []
+show-battery=false
+show-fan=false
+show-gpu=false
+show-network=false
+show-storage=false
+show-system=false
+show-voltage=false
+system-colors=@as []
+temperature-colors=@as []
+update-time=5
+use-higher-precision=true
+
+[org/gnome/shell/extensions/just-perfection]
+animation=4
+panel-in-overview=true
+support-notifier-type=0
+
+[org/gnome/shell/extensions/clipboard-indicator]
+enable-keybindings=false
+
+[org/gnome/shell/extensions/weather-oclock]
+weather-after-clock=false
+
+[org/gnome/shell/extensions/appindicator]
+icon-opacity=240
