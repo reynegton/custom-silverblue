@@ -1,0 +1,5 @@
+# SSD / NVMe / Flash (não rotacional): mq-deadline (baixa latência e menor uso de CPU)
+ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="mq-deadline"
+
+# HDD mecânico (rotacional): bfq (evita congelamentos de busca mecânica)
+ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"

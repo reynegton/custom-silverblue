@@ -49,3 +49,13 @@ weather-after-clock=false
 
 [org/gnome/shell/extensions/appindicator]
 icon-opacity=240
+
+[org/gnome/software]
+download-updates=false
+download-updates-notify=false
+
+[org/gnome/desktop/search-providers]
+disabled=['org.gnome.Software.desktop']
+
+[org/freedesktop/tracker/miner/files]
+index-recursive-directories=['&DESKTOP', '&DOCUMENTS', '&DOWNLOAD', '&MUSIC', '&PICTURES', '&VIDEOS']

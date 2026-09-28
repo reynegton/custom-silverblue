@@ -27,17 +27,35 @@ RUN dnf -y install \
     zsh \
     && dnf clean all
 
-# 3. Copiar árvore de arquivos e customizações do sistema (rootfs)
+# 3. Garantir grupo adbusers para depuração Android
+RUN groupadd -r adbusers || true
+
+# 4. Copiar árvore de arquivos e customizações do sistema (rootfs)
 COPY rootfs/ /
 
-# 4. Ajustar permissões dos scripts executáveis
+# 5. Ajustar permissões dos scripts executáveis
 RUN chmod +x /usr/bin/flatpak-provisioning.sh /usr/local/bin/*.sh
 
-# 5. Compilar os esquemas GSettings do GNOME e gerar o banco Dconf do sistema
+# 6. Compilar os esquemas GSettings do GNOME e gerar o banco Dconf do sistema
 RUN glib-compile-schemas /usr/share/glib-2.0/schemas && dconf update
 
-# 6. Habilitar serviços de sistema essenciais
-RUN systemctl enable sysstat flatpak-provisioning.service
+# 7. Desativar / Mascarar serviços desnecessários para poupar bateria e recursos
+RUN systemctl mask \
+    fedora-atomic-desktop-appstream-cache-refresh.service \
+    ModemManager.service \
+    cups.socket cups.path cups.service cups-browsed.service \
+    avahi-daemon.socket avahi-daemon.service \
+    pcscd.socket pcscd.service \
+    auditd.service \
+    passim.service
 
-# 7. Finalizar o commit do OSTree para o bootc / rpm-ostree
+# 8. Habilitar serviços e timers essenciais de manutenção e otimização
+RUN systemctl enable \
+    thermald.service \
+    sysstat.service \
+    fstrim.timer \
+    rpm-ostreed-automatic.timer \
+    flatpak-provisioning.service
+
+# 9. Finalizar o commit do OSTree para o bootc / rpm-ostree
 RUN ostree container commit
