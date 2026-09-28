@@ -1,0 +1,26 @@
+name: Keepalive Workflow
+
+on:
+  schedule:
+    # Executa a cada 25 dias às 00:00 UTC para manter as automações ativas
+    - cron: '0 0 */25 * *'
+  workflow_dispatch:
+
+jobs:
+  keepalive:
+    name: Keepalive Ping
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Keepalive Workflow
+        uses: gautamkrishnar/keepalive-workflow@v2
+        with:
+          time_elapsed: 25
+          committer_username: 'github-actions[bot]'
+          committer_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'chore: automated keepalive ping to maintain active scheduled builds'
