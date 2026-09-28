@@ -1,0 +1,11 @@
+[org.gnome.desktop.interface]
+color-scheme='prefer-dark'
+gtk-theme='adw-gtk3-dark'
+font-antialiasing='rgba'
+font-rgba-order='rgb'
+
+[org.gnome.mutter]
+experimental-features=['kms-modifiers', 'autoclose-xwayland']
+
+[org.gnome.shell]
+enabled-extensions=['Vitals@CoreCoding.com', 'weatheroclock@CleoMenezesJr.github.io', 'appindicatorsupport@rgcjonas.gmail.com', 'clipboard-indicator@tudmotu.com', 'just-perfection-desktop@just-perfection']

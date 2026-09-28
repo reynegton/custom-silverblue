@@ -27,8 +27,17 @@ RUN dnf -y install \
     zsh \
     && dnf clean all
 
-# 3. Habilitar serviços de sistema essenciais
-RUN systemctl enable sysstat
+# 3. Copiar árvore de arquivos e customizações do sistema (rootfs)
+COPY rootfs/ /
 
-# 4. Finalizar o commit do OSTree para o bootc / rpm-ostree
+# 4. Ajustar permissões dos scripts executáveis
+RUN chmod +x /usr/bin/flatpak-provisioning.sh /usr/local/bin/*.sh
+
+# 5. Compilar os esquemas GSettings do GNOME (aplica temas, fontes e extensões de fábrica)
+RUN glib-compile-schemas /usr/share/glib-2.0/schemas
+
+# 6. Habilitar serviços de sistema essenciais
+RUN systemctl enable sysstat flatpak-provisioning.service
+
+# 7. Finalizar o commit do OSTree para o bootc / rpm-ostree
 RUN ostree container commit

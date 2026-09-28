@@ -1,0 +1,21 @@
+# Lista declarativa de aplicativos Flatpak essenciais
+com.github.tchx84.Flatseal
+com.google.Chrome
+com.mattjakeman.ExtensionManager
+com.thincast.client
+com.valvesoftware.Steam
+dev.vencord.Vesktop
+io.github.dvlv.boxbuddyrs
+io.github.kolunmi.Bazaar
+io.github.shiftey.Desktop
+io.missioncenter.MissionCenter
+it.mijorus.gearlever
+md.obsidian.Obsidian
+org.gnome.gitlab.somas.Apostrophe
+org.kde.kate
+org.mozilla.firefox
+org.onlyoffice.desktopeditors
+org.upscayl.Upscayl
+org.videolan.VLC
+org.gtk.Gtk3theme.adw-gtk3
+org.gtk.Gtk3theme.adw-gtk3-dark

@@ -1,0 +1,6 @@
+[Context]
+filesystems=home;~/.local/share/icons;~/.local/share/applications;
+unset-environment=LIBVA_DRIVER_NAME;
+
+[Environment]
+LIBVA_DRIVER_NAME=
