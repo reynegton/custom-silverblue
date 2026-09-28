@@ -34,7 +34,7 @@ RUN groupadd -r adbusers || true
 COPY rootfs/ /
 
 # 5. Ajustar permissões dos scripts executáveis
-RUN chmod +x /usr/bin/flatpak-provisioning.sh /usr/local/bin/*.sh
+RUN chmod +x /usr/bin/flatpak-provisioning.sh /usr/bin/clean.sh /usr/bin/memory_clean.sh
 
 # 6. Compilar os esquemas GSettings do GNOME e gerar o banco Dconf do sistema
 RUN glib-compile-schemas /usr/share/glib-2.0/schemas && dconf update
