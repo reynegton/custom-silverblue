@@ -4,3 +4,5 @@ filesystems=xdg-config/kdeglobals:ro;
 [Environment]
 QT_QPA_PLATFORMTHEME=kde
 QT_STYLE_OVERRIDE=Breeze
+XCURSOR_SIZE=24
+XCURSOR_THEME=Adwaita
