@@ -118,6 +118,8 @@ systemctl reboot
 ## 🔄 Próximo Passo: Configurar a Home do Usuário
 
 Após reiniciar o computador na imagem declarativa:
+> **💡 Nota:** No primeiro boot, o serviço nativo `flatpak-provisioning.service` é acionado automaticamente em segundo plano para instalar todos os seus Flatpaks declarados em `flatpaks.list` (Thincast, Chrome, Steam, Obsidian, etc.).
+
 1. Autentique o GitHub:
    ```bash
    gh auth login

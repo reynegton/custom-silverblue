@@ -39,10 +39,77 @@ echo -e "${BLUE}[1/7] Configurando política de assinatura Cosign e imagem OCI d
 # Garantir diretórios de políticas e chave pública no host
 sudo mkdir -p /etc/pki/containers /etc/containers/registries.d
 
-# Baixar chave pública e registrar política de verificação criptográfica
-sudo curl -fsSL https://raw.githubusercontent.com/reynegton/custom-silverblue/main/rootfs/etc/pki/containers/custom-silverblue.pub -o /etc/pki/containers/custom-silverblue.pub
-sudo curl -fsSL https://raw.githubusercontent.com/reynegton/custom-silverblue/main/rootfs/etc/containers/registries.d/custom-silverblue.yaml -o /etc/containers/registries.d/custom-silverblue.yaml
-sudo curl -fsSL https://raw.githubusercontent.com/reynegton/custom-silverblue/main/rootfs/etc/containers/policy.json -o /etc/containers/policy.json
+# Chave pública Cosign
+cat << 'EOF' | sudo tee /etc/pki/containers/custom-silverblue.pub > /dev/null
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEce/icUdR37NyOoAqLTuKmPnzPUVM
+m/IiH3fuJLizPXpAmyWTSZ0jhCyJhZ+1mZqINlSlpAv9bxgiJU5KoaiXOA==
+-----END PUBLIC KEY-----
+EOF
+
+# Descoberta de anexos Sigstore no GHCR
+cat << 'EOF' | sudo tee /etc/containers/registries.d/custom-silverblue.yaml > /dev/null
+docker:
+  ghcr.io/reynegton/custom-silverblue:
+    use-sigstore-attachments: true
+EOF
+
+# Política de validação criptográfica estrita
+cat << 'EOF' | sudo tee /etc/containers/policy.json > /dev/null
+{
+    "default": [
+        {
+            "type": "reject"
+        }
+    ],
+    "transports": {
+        "docker": {
+            "ghcr.io/reynegton/custom-silverblue": [
+                {
+                    "type": "sigstoreSigned",
+                    "keyPath": "/etc/pki/containers/custom-silverblue.pub",
+                    "signedIdentity": {
+                        "type": "matchRepository"
+                    }
+                }
+            ],
+            "": [
+                {
+                    "type": "insecureAcceptAnything"
+                }
+            ]
+        },
+        "docker-daemon": {
+            "": [
+                {
+                    "type": "insecureAcceptAnything"
+                }
+            ]
+        },
+        "containers-storage": {
+            "": [
+                {
+                    "type": "insecureAcceptAnything"
+                }
+            ]
+        },
+        "dir": {
+            "": [
+                {
+                    "type": "insecureAcceptAnything"
+                }
+            ]
+        },
+        "oci": {
+            "": [
+                {
+                    "type": "insecureAcceptAnything"
+                }
+            ]
+        }
+    }
+}
+EOF
 
 IMAGE_TARGET="ostree-image-signed:docker://ghcr.io/reynegton/custom-silverblue:latest"
 
