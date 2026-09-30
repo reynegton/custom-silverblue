@@ -70,9 +70,10 @@ jobs:
         run: |
           cosign sign \
             --yes \
-            --new-bundle-format=false \
             --use-signing-config=false \
+            --tlog-upload=false \
             --registry-referrers-mode=legacy \
             --key env://COSIGN_PRIVATE_KEY \
             "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}"
+
 
