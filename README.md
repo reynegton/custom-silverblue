@@ -41,7 +41,7 @@ Instaladas diretamente em `/usr/share/gnome-shell/extensions/`, ativas globalmen
 - Otimização do Tracker/Localsearch restrito às pastas de mídia do usuário.
 
 ### 4. Flatpaks Declarativos & Overrides Globais
-- **Instalação Automática:** Serviço `flatpak-provisioning.service` que no primeiro boot instala e garante a presença dos aplicativos de [`flatpaks.list`](file:///var/home/reynegton/Documentos/GitHub/custom-silverblue/rootfs/usr/share/custom-silverblue/flatpaks.list) (Chrome, Firefox, Steam, VLC, Kate, Thincast Client, GearLever, Obsidian, Vesktop, etc.).
+- **Instalação Automática:** Serviço `flatpak-provisioning.service` que no primeiro boot instala e garante a presença dos aplicativos de [`flatpaks.list`](rootfs/usr/share/custom-silverblue/flatpaks.list) (Chrome, Firefox, Steam, VLC, Kate, Thincast Client, GearLever, Obsidian, Vesktop, etc.).
 - **Overrides de Permissões (`/etc/flatpak/overrides/`):**
   - *Global:* Integração visual forçando `Breeze Dark` e fontes nativas `Adwaita Sans` para qualquer Flatpak Qt/KDE.
   - *Google Chrome:* Aceleração por hardware VA-API, pipeline Wayland e acesso às pastas do usuário.
