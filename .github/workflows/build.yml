@@ -48,7 +48,11 @@ jobs:
             type=raw,value=44
             type=sha,format=short
 
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3.8.1
+
       - name: Build and push container image
+        id: build
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -58,3 +62,17 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Sign container image
+        env:
+          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+        run: |
+          cosign sign \
+            --yes \
+            --new-bundle-format=false \
+            --use-signing-config=false \
+            --registry-referrers-mode=legacy \
+            --key env://COSIGN_PRIVATE_KEY \
+            "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}"
+

@@ -87,7 +87,7 @@ systemctl reboot
 ```
 
 > **O que o `bootstrap.sh` faz por você automaticamente:**
-> 1. Executa o rebase para esta imagem OCI (`ghcr.io/reynegton/custom-silverblue:latest`).
+> 1. Configura a validação criptográfica (Cosign) e executa o rebase assinado (`ostree-image-signed:docker://ghcr.io/reynegton/custom-silverblue:latest`).
 > 2. Injeta os parâmetros de Kernel recomendados (`mitigations=off`, `tpm_tis.interrupts=0`, `iommu=pt`, blacklist do `nouveau`, `systemd.tpm2_wait=0`, `audit=0`, `rootflags` Btrfs).
 > 3. Habilita a compilação local compacta do Initramfs (`--hostonly`, ~35 MB).
 > 4. Ajusta o GRUB com menu visível por 10 segundos para segurança máxima de rollback.
@@ -97,12 +97,19 @@ systemctl reboot
 
 ---
 
-### Método 2: Rebase Manual
+### Método 2: Rebase Manual com Verificação Assinada
 
-Caso queira fazer o rebase manualmente sem rodar o script mestre:
+Caso queira configurar a verificação e fazer o rebase manualmente:
 
 ```bash
-rpm-ostree rebase ostree-unverified-registry:ghcr.io/reynegton/custom-silverblue:latest
+# 1. Configurar política de assinatura e chave pública
+sudo mkdir -p /etc/pki/containers /etc/containers/registries.d
+sudo curl -fsSL https://raw.githubusercontent.com/reynegton/custom-silverblue/main/rootfs/etc/pki/containers/custom-silverblue.pub -o /etc/pki/containers/custom-silverblue.pub
+sudo curl -fsSL https://raw.githubusercontent.com/reynegton/custom-silverblue/main/rootfs/etc/containers/registries.d/custom-silverblue.yaml -o /etc/containers/registries.d/custom-silverblue.yaml
+sudo curl -fsSL https://raw.githubusercontent.com/reynegton/custom-silverblue/main/rootfs/etc/containers/policy.json -o /etc/containers/policy.json
+
+# 2. Executar o rebase assinado (sem flag unverified)
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/reynegton/custom-silverblue:latest
 systemctl reboot
 ```
 

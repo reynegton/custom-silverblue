@@ -34,15 +34,24 @@ sudo -v
 # 1. Rebase para a Imagem OCI Declarativa (GHCR)
 # ------------------------------------------------------------------------------
 echo ""
-echo -e "${BLUE}[1/7] Configurando imagem OCI declarativa...${NC}"
-IMAGE_TARGET="ostree-unverified-registry:ghcr.io/reynegton/custom-silverblue:latest"
+echo -e "${BLUE}[1/7] Configurando política de assinatura Cosign e imagem OCI declarativa...${NC}"
 
-if rpm-ostree status | grep -q "custom-silverblue:latest"; then
-    echo -e "${GREEN}✓ O sistema já está configurado ou rebased para custom-silverblue.${NC}"
+# Garantir diretórios de políticas e chave pública no host
+sudo mkdir -p /etc/pki/containers /etc/containers/registries.d
+
+# Baixar chave pública e registrar política de verificação criptográfica
+sudo curl -fsSL https://raw.githubusercontent.com/reynegton/custom-silverblue/main/rootfs/etc/pki/containers/custom-silverblue.pub -o /etc/pki/containers/custom-silverblue.pub
+sudo curl -fsSL https://raw.githubusercontent.com/reynegton/custom-silverblue/main/rootfs/etc/containers/registries.d/custom-silverblue.yaml -o /etc/containers/registries.d/custom-silverblue.yaml
+sudo curl -fsSL https://raw.githubusercontent.com/reynegton/custom-silverblue/main/rootfs/etc/containers/policy.json -o /etc/containers/policy.json
+
+IMAGE_TARGET="ostree-image-signed:docker://ghcr.io/reynegton/custom-silverblue:latest"
+
+if rpm-ostree status | grep -q "ostree-image-signed:docker://ghcr.io/reynegton/custom-silverblue:latest"; then
+    echo -e "${GREEN}✓ O sistema já está configurado ou rebased para custom-silverblue assinada.${NC}"
 else
-    echo -e "${CYAN}Executando rebase para: $IMAGE_TARGET...${NC}"
+    echo -e "${CYAN}Executando rebase verificado para: $IMAGE_TARGET...${NC}"
     rpm-ostree rebase "$IMAGE_TARGET"
-    echo -e "${GREEN}✓ Rebase agendado com sucesso.${NC}"
+    echo -e "${GREEN}✓ Rebase verificado agendado com sucesso.${NC}"
 fi
 
 # ------------------------------------------------------------------------------

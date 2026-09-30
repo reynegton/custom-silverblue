@@ -1,0 +1,3 @@
+docker:
+  ghcr.io/reynegton/custom-silverblue:
+    use-sigstore-attachments: true
