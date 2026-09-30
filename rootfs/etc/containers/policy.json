@@ -1,7 +1,7 @@
 {
     "default": [
         {
-            "type": "insecureAcceptAnything"
+            "type": "reject"
         }
     ],
     "transports": {
@@ -14,9 +14,35 @@
                         "type": "matchRepository"
                     }
                 }
+            ],
+            "": [
+                {
+                    "type": "insecureAcceptAnything"
+                }
             ]
         },
         "docker-daemon": {
+            "": [
+                {
+                    "type": "insecureAcceptAnything"
+                }
+            ]
+        },
+        "containers-storage": {
+            "": [
+                {
+                    "type": "insecureAcceptAnything"
+                }
+            ]
+        },
+        "dir": {
+            "": [
+                {
+                    "type": "insecureAcceptAnything"
+                }
+            ]
+        },
+        "oci": {
             "": [
                 {
                     "type": "insecureAcceptAnything"
