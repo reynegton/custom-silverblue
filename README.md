@@ -41,11 +41,11 @@ Instaladas diretamente em `/usr/share/gnome-shell/extensions/`, ativas globalmen
 - Otimização do Tracker/Localsearch restrito às pastas de mídia do usuário.
 
 ### 4. Flatpaks Declarativos & Overrides Globais
-- **Instalação Automática:** Serviço `flatpak-provisioning.service` que no primeiro boot instala e garante a presença dos aplicativos de [`flatpaks.list`](file:///var/home/reynegton/Documentos/GitHub/custom-silverblue/rootfs/usr/share/custom-silverblue/flatpaks.list) (Chrome, Firefox, Steam, VLC, Kate, KRDC, GearLever, Obsidian, Vesktop, etc.).
+- **Instalação Automática:** Serviço `flatpak-provisioning.service` que no primeiro boot instala e garante a presença dos aplicativos de [`flatpaks.list`](file:///var/home/reynegton/Documentos/GitHub/custom-silverblue/rootfs/usr/share/custom-silverblue/flatpaks.list) (Chrome, Firefox, Steam, VLC, Kate, Thincast Client, GearLever, Obsidian, Vesktop, etc.).
 - **Overrides de Permissões (`/etc/flatpak/overrides/`):**
   - *Global:* Integração visual forçando `Breeze Dark` e fontes nativas `Adwaita Sans` para qualquer Flatpak Qt/KDE.
   - *Google Chrome:* Aceleração por hardware VA-API, pipeline Wayland e acesso às pastas do usuário.
-  - *KRDC:* Sockets X11 para decodificação RDP fluida com baixa latência.
+  - *Thincast Client:* Cursor Adwaita normalizado (tamanho 24) para sincronização perfeita de ponteiro no RDP.
 
 ### 5. Kernel, Memória & Rede
 - **ZRAM 1:1 com LZ4:** Compactação em memória física com algoritmo **`lz4`** (~3 GB/s de descompressão, ideal para processadores dual-core).
