@@ -7,6 +7,8 @@ on:
     paths-ignore:
       - 'README.md'
       - '.gitignore'
+      - '.github/keepalive.txt'
+      - '.github/workflows/keepalive.yml'
   schedule:
     # Executa diariamente às 04:00 UTC (01:00 BRT) para incorporar correções upstream do Fedora
     - cron: '0 4 * * *'

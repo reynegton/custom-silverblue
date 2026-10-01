@@ -17,10 +17,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Run Keepalive Workflow
-        uses: gautamkrishnar/keepalive-workflow@v2
-        with:
-          time_elapsed: 25
-          committer_username: 'github-actions[bot]'
-          committer_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'chore: automated keepalive ping to maintain active scheduled builds'
+      - name: Native Keepalive Ping
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p .github
+          date -u +"%Y-%m-%dT%H:%M:%SZ" > .github/keepalive.txt
+          git add .github/keepalive.txt
+          git commit -m "chore: automated keepalive ping [skip ci]" || exit 0
+          git push
