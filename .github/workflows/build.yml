@@ -10,8 +10,8 @@ on:
       - '.github/keepalive.txt'
       - '.github/workflows/keepalive.yml'
   schedule:
-    # Executa diariamente às 04:45 UTC (01:45 BRT) — margem de segurança após o push diário do Fedora 44 (~03:25 UTC)
-    - cron: '45 4 * * *'
+    # Executa diariamente às 05:17 UTC (02:17 BRT) — minuto ímpar/fora de pico com ~1h50 de margem após a publicação do Fedora 44 (~03:25 UTC)
+    - cron: '17 5 * * *'
   workflow_dispatch:
 
 env:
