@@ -1,6 +1,6 @@
-# 🚀 Custom Fedora Silverblue 44 (Declarative OCI)
+# 🚀 Custom Fedora Silverblue 45 (Declarative OCI)
 
-Imagem declarativa personalizada do **Fedora Silverblue 44**, construída de forma automatizada via **GitHub Actions (CI/CD)** e hospedada no **GitHub Container Registry (GHCR)**:
+Imagem declarativa personalizada do **Fedora Silverblue 45**, construída de forma automatizada via **GitHub Actions (CI/CD)** e hospedada no **GitHub Container Registry (GHCR)**:
 👉 `ghcr.io/reynegton/custom-silverblue:latest`
 
 ---
@@ -157,5 +157,5 @@ Após reiniciar o computador na imagem declarativa:
   ```
 - **Voltar para a imagem oficial pura do Fedora Silverblue:**
   ```bash
-  rpm-ostree rebase fedora:fedora/44/x86_64/silverblue
+  rpm-ostree rebase fedora:fedora/45/x86_64/silverblue
   ```

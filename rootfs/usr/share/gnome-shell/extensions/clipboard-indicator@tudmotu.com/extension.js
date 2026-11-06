@@ -17,6 +17,7 @@ import { Registry, ClipboardEntry } from './registry.js';
 import { DialogManager } from './confirmDialog.js';
 import { PrefsFields } from './constants.js';
 import { Keyboard } from './keyboard.js';
+import { boxLayoutOrientation } from './compat.js';
 
 const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 
@@ -169,7 +170,7 @@ const ClipboardIndicator = GObject.registerClass({
             this._updateTopbarLayout();
             this._setupListener();
             this._setupHistoryIntervalClearing();
-        });
+        }).catch(e => console.error('Clipboard Indicator: _buildMenu failed', e));
     }
 
     #updateIndicatorContent(entry) {
@@ -387,7 +388,7 @@ const ClipboardIndicator = GObject.registerClass({
         // Empty state section
         this.emptyStateSection = new St.BoxLayout({
             style_class: 'clipboard-indicator-empty-state',
-            vertical: true
+            ...boxLayoutOrientation(true)
         });
         this.emptyStateSection.add_child(new St.Icon({
             icon_name: INDICATOR_ICON,
@@ -865,11 +866,16 @@ const ClipboardIndicator = GObject.registerClass({
 
     _clearHistory (invokedAutomatically = false) {
         // Don't remove pinned items
-        this.historySection._getMenuItems().forEach(mItem => {
-            if (KEEP_SELECTED_ON_CLEAR === false || !mItem.currentlySelected) {
-                this._removeEntry(mItem, 'delete');
-            }
-        });
+        const toRemove = this.historySection._getMenuItems().filter(mItem =>
+            KEEP_SELECTED_ON_CLEAR === false || !mItem.currentlySelected);
+
+        // Remove everything first, then write the registry and update the
+        // menu once, instead of once per removed entry.
+        toRemove.forEach(mItem => this._removeEntry(mItem, 'delete', true));
+        if (toRemove.length > 0) {
+            this._updateCache();
+            this.#showElements();
+        }
 
         if (NOTIFY_ON_CLEAR) {
             const message = invokedAutomatically
@@ -889,7 +895,7 @@ const ClipboardIndicator = GObject.registerClass({
         }
     }
 
-    _removeEntry (menuItem, event) {
+    _removeEntry (menuItem, event, deferUpdates = false) {
         let itemIdx = this.clipItemsRadioGroup.indexOf(menuItem);
 
         if(event === 'delete' && menuItem.currentlySelected) {
@@ -902,6 +908,9 @@ const ClipboardIndicator = GObject.registerClass({
         if (menuItem.entry.isImage()) {
             this.registry.deleteEntryFile(menuItem.entry);
         }
+
+        // The caller updates the cache and the menu once when removing many
+        if (deferUpdates) return;
 
         this._updateCache();
         this.#showElements();
@@ -983,8 +992,8 @@ const ClipboardIndicator = GObject.registerClass({
     #addToCache (entry) {
         const entries = this.clipItemsRadioGroup
             .map(menuItem => menuItem.entry)
-            .filter(entry => CACHE_ONLY_FAVORITE == false || entry.isFavorite())
-            .concat([entry]);
+            .concat([entry])
+            .filter(entry => CACHE_ONLY_FAVORITE == false || entry.isFavorite());
         this.registry.write(entries);
     }
 
@@ -1845,7 +1854,7 @@ const ClipboardIndicator = GObject.registerClass({
             style_class: 'ci-edit-textbox',
             x_expand: true,
             y_expand: true,
-            vertical: true,
+            ...boxLayoutOrientation(true),
         });
 
         textBox.add_child(clutterText);
