@@ -59,7 +59,8 @@ RUN systemctl enable \
     sysstat.service \
     fstrim.timer \
     rpm-ostreed-automatic.timer \
-    flatpak-provisioning.service
+    flatpak-provisioning.service \
+    && systemctl --global enable oo7-daemon.service || true
 
 # 9. Finalizar o commit do OSTree para o bootc / rpm-ostree
 RUN ostree container commit
