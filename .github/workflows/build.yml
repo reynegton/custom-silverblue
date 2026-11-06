@@ -10,7 +10,7 @@ on:
       - '.github/keepalive.txt'
       - '.github/workflows/keepalive.yml'
   schedule:
-    # Executa diariamente às 05:17 UTC (02:17 BRT) — minuto ímpar/fora de pico com ~1h50 de margem após a publicação do Fedora 45 (~03:25 UTC)
+    # Executa diariamente às 05:17 UTC (02:17 BRT) — minuto ímpar/fora de pico com ~1h50 de margem após as publicações do Fedora (~03:25 UTC)
     - cron: '17 5 * * *'
   workflow_dispatch:
 
@@ -20,11 +20,19 @@ env:
 
 jobs:
   build-and-push:
-    name: Build and Push OCI Image
+    name: Build and Push OCI Image (Fedora ${{ matrix.fedora_version }})
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - fedora_version: 45
+            is_latest: true
+          - fedora_version: 44
+            is_latest: false
 
     steps:
       - name: Checkout repository
@@ -46,9 +54,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=latest
-            type=raw,value=45
-            type=sha,format=short
+            type=raw,value=${{ matrix.fedora_version }}
+            type=raw,value=latest,enable=${{ matrix.is_latest }}
+            type=sha,prefix=${{ matrix.fedora_version }}-,format=short
 
       - name: Install Cosign
         uses: sigstore/cosign-installer@v3.8.1
@@ -59,11 +67,13 @@ jobs:
         with:
           context: .
           file: ./Containerfile
+          build-args: |
+            FEDORA_MAJOR_VERSION=${{ matrix.fedora_version }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          cache-from: type=gha,scope=f${{ matrix.fedora_version }}
+          cache-to: type=gha,mode=max,scope=f${{ matrix.fedora_version }}
 
       - name: Sign container image
         env:
@@ -71,6 +81,7 @@ jobs:
           COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
         run: |
           cosign sign --yes --key env://COSIGN_PRIVATE_KEY "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}"
+
 
 
 

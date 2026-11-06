@@ -1,11 +1,13 @@
 # ==============================================================================
-# Fedora Silverblue 45 - Imagem OCI Declarativa Personalizada
+# Fedora Silverblue - Imagem OCI Declarativa Personalizada
 # Baseada na imagem oficial do Fedora Atomic Desktops
 # ==============================================================================
-FROM quay.io/fedora-ostree-desktops/silverblue:45
+ARG FEDORA_MAJOR_VERSION=45
+FROM quay.io/fedora-ostree-desktops/silverblue:${FEDORA_MAJOR_VERSION}
 
+ARG FEDORA_MAJOR_VERSION=45
 LABEL org.opencontainers.image.title="custom-silverblue" \
-      org.opencontainers.image.description="Fedora Silverblue 45 declarativo personalizado" \
+      org.opencontainers.image.description="Fedora Silverblue ${FEDORA_MAJOR_VERSION} declarativo personalizado" \
       org.opencontainers.image.vendor="reynegton"
 
 # 1. Remover navegadores base (utilizando Firefox via Flatpak para manter isolamento)
