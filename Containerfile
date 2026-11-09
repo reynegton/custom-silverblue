@@ -13,7 +13,7 @@ LABEL org.opencontainers.image.title="custom-silverblue" \
 # 1. Remover navegadores base (utilizando Firefox via Flatpak para manter isolamento)
 RUN dnf -y remove firefox firefox-langpacks || true
 
-# 2. Injetar pacotes essenciais do sistema, visual e hardware
+# 2. Injetar pacotes essenciais do sistema, visual, hardware e wallpapers dinâmicos oficiais
 RUN dnf -y install \
     adw-gtk3-theme \
     android-tools \
@@ -29,6 +29,15 @@ RUN dnf -y install \
     steam-devices \
     sysstat \
     zsh \
+    f36-backgrounds-gnome \
+    f37-backgrounds-gnome \
+    f38-backgrounds-gnome \
+    f39-backgrounds-gnome \
+    f40-backgrounds-gnome \
+    f41-backgrounds-gnome \
+    f42-backgrounds-gnome \
+    f43-backgrounds-gnome \
+    f44-backgrounds-gnome \
     && dnf clean all
 
 # 3. Garantir grupo adbusers para depuração Android
