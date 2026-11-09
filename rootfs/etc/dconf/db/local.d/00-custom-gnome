@@ -13,7 +13,7 @@ font-rgba-order='rgb'
 experimental-features=['kms-modifiers', 'autoclose-xwayland']
 
 [org/gnome/shell]
-enabled-extensions=['Vitals@CoreCoding.com', 'weatheroclock@CleoMenezesJr.github.io', 'appindicatorsupport@rgcjonas.gmail.com', 'clipboard-indicator@tudmotu.com', 'just-perfection-desktop@just-perfection']
+enabled-extensions=['Vitals@CoreCoding.com', 'weatheroclock@CleoMenezesJr.github.io', 'appindicatorsupport@rgcjonas.gmail.com', 'clipboard-indicator@tudmotu.com']
 
 [org/gnome/shell/extensions/vitals]
 battery-colors=@as []
@@ -35,11 +35,6 @@ system-colors=@as []
 temperature-colors=@as []
 update-time=5
 use-higher-precision=true
-
-[org/gnome/shell/extensions/just-perfection]
-animation=4
-panel-in-overview=true
-support-notifier-type=0
 
 [org/gnome/shell/extensions/clipboard-indicator]
 enable-keybindings=false

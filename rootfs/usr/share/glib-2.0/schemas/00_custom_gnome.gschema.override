@@ -8,4 +8,4 @@ font-rgba-order='rgb'
 experimental-features=['kms-modifiers', 'autoclose-xwayland']
 
 [org.gnome.shell]
-enabled-extensions=['Vitals@CoreCoding.com', 'weatheroclock@CleoMenezesJr.github.io', 'appindicatorsupport@rgcjonas.gmail.com', 'clipboard-indicator@tudmotu.com', 'just-perfection-desktop@just-perfection']
+enabled-extensions=['Vitals@CoreCoding.com', 'weatheroclock@CleoMenezesJr.github.io', 'appindicatorsupport@rgcjonas.gmail.com', 'clipboard-indicator@tudmotu.com']

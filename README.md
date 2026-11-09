@@ -30,10 +30,8 @@ Instaladas diretamente em `/usr/share/gnome-shell/extensions/`, ativas globalmen
 - **Weather O'Clock:** Clima integrado ao relógio central do painel.
 - **AppIndicator and KStatusNotifierItem Support:** Bandeja de ícones para mensageiros e ferramentas de segundo plano.
 - **Clipboard Indicator:** Histórico de área de transferência.
-- **Just Perfection:** Ajuste fino da interface e velocidade das animações.
 
 ### 3. Banco de Dados Dconf do Sistema Compilado (`00-custom-gnome`)
-- Animações aceleradas em **0.6x** (*Faster*) sem engasgos.
 - Tema escuro preferencial (`prefer-dark`) com estilo Adwaita Dark.
 - Renderização e nitidez de fontes com antialiasing subpixel **RGBA** (`rgba`/`rgb`).
 - Sensores calibrados no Vitals com taxa de atualização de **5 segundos** (evita micro-travas no laço do GJS).
