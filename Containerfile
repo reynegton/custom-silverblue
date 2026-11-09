@@ -29,6 +29,21 @@ RUN dnf -y install \
     steam-devices \
     sysstat \
     zsh \
+    f21-backgrounds-gnome \
+    f22-backgrounds-gnome \
+    f23-backgrounds-gnome \
+    f24-backgrounds-gnome \
+    f25-backgrounds-gnome \
+    f26-backgrounds-gnome \
+    f27-backgrounds-gnome \
+    f28-backgrounds-gnome \
+    f29-backgrounds-gnome \
+    f30-backgrounds-gnome \
+    f31-backgrounds-gnome \
+    f32-backgrounds-gnome \
+    f33-backgrounds-gnome \
+    f34-backgrounds-gnome \
+    f35-backgrounds-gnome \
     f36-backgrounds-gnome \
     f37-backgrounds-gnome \
     f38-backgrounds-gnome \

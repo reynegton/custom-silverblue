@@ -21,7 +21,7 @@ Este ecossistema foi projetado para extrair o potencial máximo da imutabilidade
 ### 1. Pacotes do Sistema e Utilitários Nativos
 - **Ferramentas de Desenvolvimento & Git:** `gh` (GitHub CLI nativo em `/usr/bin/gh`), `git-lfs`, `zsh`, `distrobox`.
 - **Hardware & Multimídia:** `steam-devices` (regras Udev para controles), `ffmpegthumbnailer` (miniaturas de vídeo no Nautilus), `lm_sensors` (temperaturas e sensores), `nethogs` (tráfego de rede por PID), `sysstat` (métricas de CPU/memória), `android-tools` (`adb` e `fastboot`), `rEFInd`.
-- **Interface Visual & Wallpapers:** `gnome-tweaks`, `adw-gtk3-theme`, `fastfetch` e todo o acervo de **wallpapers oficiais dinâmicos (Dia / Noite)** do Fedora das versões **36 a 45** integrados ao seletor de fundo do GNOME.
+- **Interface Visual & Wallpapers:** `gnome-tweaks`, `adw-gtk3-theme`, `fastfetch` e todo o acervo de **wallpapers oficiais** do Fedora de todas as versões do **Fedora 21 ao 45** (com suporte dinâmico Dia/Noite a partir do F36) integrados ao seletor de fundo do GNOME.
 - **Limpeza do Sistema:** `firefox` e `firefox-langpacks` do sistema base foram removidos (utilização exclusiva via Flatpak para manter o isolamento).
 
 ### 2. Extensões do GNOME Shell Nativas do Sistema
