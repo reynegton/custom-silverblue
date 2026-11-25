@@ -42,7 +42,7 @@ Instaladas diretamente em `/usr/share/gnome-shell/extensions/`, ativas globalmen
 - **Instalação Automática:** Serviço `flatpak-provisioning.service` que no primeiro boot instala e garante a presença dos aplicativos de [`flatpaks.list`](rootfs/usr/share/custom-silverblue/flatpaks.list) (Chrome, Firefox, Steam, VLC, Kate, Thincast Client, GearLever, Obsidian, Vesktop, etc.).
 - **Overrides de Permissões (`/etc/flatpak/overrides/`):**
   - *Global:* Integração visual forçando `Breeze Dark` e fontes nativas `Adwaita Sans` para qualquer Flatpak Qt/KDE.
-  - *Google Chrome:* Aceleração por hardware VA-API, pipeline Wayland e acesso às pastas do usuário.
+  - *Google Chrome:* Aceleração por hardware VA-API, pipeline Wayland, acesso às pastas do usuário e vínculo automático de ícones (`user-tmpfiles.d`) em `~/.var/app/com.google.Chrome/data/icons -> ~/.local/share/icons` para WebApps/PWAs.
   - *Thincast Client:* Cursor Adwaita normalizado (tamanho 24) para sincronização perfeita de ponteiro no RDP.
 
 ### 5. Kernel, Memória & Rede
